@@ -14,7 +14,7 @@ transform = transforms.Compose([
 
 # I use "∅" to denote the blank token. This list is automatically generated at training,
 # but I recommend that you hardcode your characters at evaluation
-classes = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'c', 'd', 'e', 'g', 'h', 'k', 'n', 'o', 'p', 'q', 's', 'u', 'v', 'x', 'y', 'z']
+classes = ['∅', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'c', 'd', 'e', 'g', 'h', 'k', 'n', 'o', 'p', 'q', 's', 'u', 'v', 'x', 'y', 'z']
 
 def inference(image_path):
     # Hardcoded resize
@@ -40,17 +40,25 @@ def inference(image_path):
 
     if model.use_ctc:
         answer = decode_predictions(preds, classes)
+        answer = decoded_answer_list_to_string(answer)
     else:
         answer = decode_padded_predictions(preds, classes)
     return answer
 
+def decoded_answer_list_to_string(answer):
+    # collapse each pair of chars that are siblings and duplicates into one
+    for i in range(len(answer) - 2):
+        if answer[i] == answer[i + 1] and answer[i + 2] == "":
+            answer[i] = ""
+    answer = "".join(answer)
+    return answer
 
 if __name__ == "__main__":
     # Setup model and load weights
     model = CRNN(
         resolution=(250, 60),
         dims=256,
-        num_chars=len(classes),
+        num_chars=len(classes) - 1,
         use_attention=True,
         use_ctc=True,
         grayscale=True,
