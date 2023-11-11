@@ -2,6 +2,6 @@ __pycache__/
 dataset/
 *.pth
 *.png
-logs/
+logs*/
 outputs/
 venv/
