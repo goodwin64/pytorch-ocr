@@ -1,5 +1,4 @@
 import torch
-import albumentations
 import numpy as np
 from PIL import Image
 
