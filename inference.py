@@ -46,10 +46,10 @@ def inference(image_path):
     return answer
 
 def decoded_answer_list_to_string(answer):
-    # collapse each pair of chars that are siblings and duplicates into one
-    for i in range(len(answer) - 2):
-        if answer[i] == answer[i + 1] and answer[i + 2] == "":
-            answer[i] = ""
+    # collapse each sequence of chars (length up to 3) that are siblings and duplicates into one
+    for i in range(len(answer) - 1, 0, -1):
+        if answer[i] == answer[i - 1]:
+            answer.pop(i)
     answer = "".join(answer)
     return answer
 
