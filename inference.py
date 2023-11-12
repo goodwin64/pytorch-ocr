@@ -6,6 +6,7 @@ from PIL import Image
 from models.crnn import CRNN
 from utils.model_decoders import decode_predictions, decode_padded_predictions
 from torchvision import transforms
+import sys
 
 transform = transforms.Compose([
     transforms.Grayscale(),
@@ -67,6 +68,10 @@ if __name__ == "__main__":
     model.to(device)
     model.load_state_dict(torch.load("./logs/crnn.pth"))
     model.eval()
-    filepath = "sample.png"
+    # get file path from cli args
+    if len(sys.argv) < 2:
+        print("Usage: python inference.py <image_path>")
+        sys.exit(1)
+    filepath = sys.argv[1]
     answer = inference(filepath)
     print(f"text: {answer}")
