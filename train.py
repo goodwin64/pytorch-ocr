@@ -65,6 +65,8 @@ def run_training(cfg):
         os.makedirs("logs")
     start = datetime.now()
     for epoch in range(cfg.training.num_epochs):
+        if best_acc == 1.0:
+            break
         # Train
         train_loss = engine.train_fn(model, train_loader, optimizer, device)
         train_loss_data.append(train_loss)
