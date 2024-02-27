@@ -63,7 +63,7 @@ if __name__ == "__main__":
         use_ctc=True,
         grayscale=True,
     )
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
     model.to(device)
     model.load_state_dict(torch.load("./logs/crnn.pth"))
     model.eval()
