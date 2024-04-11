@@ -3,7 +3,6 @@ import onnx
 import numpy as np
 import onnxruntime as ort
 from PIL import Image
-from models.crnn import CRNN  # Assuming CRNN is not dependent on PyTorch
 from static_variables import classes
 from utils.decoded_answer_list_to_string import decoded_answer_list_to_string
 
