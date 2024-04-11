@@ -13,7 +13,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-def inference(image_path):
+def inference_with_torch(image_path):
     # Hardcoded resize
     image = Image.open(image_path).convert("RGB")
     image = image.resize((250, 60), resample=Image.BILINEAR)
@@ -69,5 +69,5 @@ if __name__ == "__main__":
         print("Usage: python inference.py <image_path>")
         sys.exit(1)
     filepath = sys.argv[1]
-    answer = inference(filepath)
+    answer = inference_with_torch(filepath)
     print(f"text: {answer}")
