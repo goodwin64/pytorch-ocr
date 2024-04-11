@@ -5,6 +5,7 @@ import onnxruntime as ort
 from PIL import Image
 from models.crnn import CRNN  # Assuming CRNN is not dependent on PyTorch
 from static_variables import classes
+from utils.decoded_answer_list_to_string import decoded_answer_list_to_string
 
 # Load the ONNX model
 onnx_path = "crnn.onnx"
@@ -56,5 +57,7 @@ if __name__ == "__main__":
         sys.exit(1)
     filepath = sys.argv[1]
     output_tensor = inference_with_onnx(filepath)
-    predicted_text = decode_output(output_tensor, classes)
+    predicted_text_with_char_duplicates = decode_output(output_tensor, classes)
+    predicted_text = decoded_answer_list_to_string(predicted_text_with_char_duplicates)
+
     print(predicted_text)

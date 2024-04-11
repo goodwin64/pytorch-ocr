@@ -5,6 +5,7 @@ from PIL import Image
 from models.crnn import CRNN
 from static_variables import classes
 from utils.model_decoders import decode_predictions, decode_padded_predictions
+from utils.decoded_answer_list_to_string import decoded_answer_list_to_string
 from torchvision import transforms
 import sys
 
@@ -40,14 +41,6 @@ def inference_with_torch(image_path):
         answer = decoded_answer_list_to_string(answer)
     else:
         answer = decode_padded_predictions(preds, classes)
-    return answer
-
-def decoded_answer_list_to_string(answer):
-    # collapse each sequence of chars (length up to 3) that are siblings and duplicates into one
-    for i in range(len(answer) - 1, 0, -1):
-        if answer[i] == answer[i - 1]:
-            answer.pop(i)
-    answer = "".join(answer)
     return answer
 
 if __name__ == "__main__":
