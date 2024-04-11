@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 
 from models.crnn import CRNN
+from static_variables import classes
 from utils.model_decoders import decode_predictions, decode_padded_predictions
 from torchvision import transforms
 import sys
@@ -11,10 +12,6 @@ transform = transforms.Compose([
     transforms.Grayscale(),
     transforms.ToTensor(),
 ])
-
-# I use "∅" to denote the blank token. This list is automatically generated at training,
-# but I recommend that you hardcode your characters at evaluation
-classes = ['∅', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'c', 'd', 'e', 'g', 'h', 'k', 'n', 'o', 'p', 'q', 's', 'u', 'v', 'x', 'y', 'z']
 
 def inference(image_path):
     # Hardcoded resize
