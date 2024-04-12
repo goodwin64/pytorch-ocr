@@ -34,4 +34,4 @@ dummy_input = torch.randn(1, 1, image_height, image_width)  # Assuming single ch
 
 # Convert the model to ONNX format
 onnx_path = "crnn.onnx"
-torch.onnx.export(model, dummy_input, onnx_path, verbose=True, input_names=['input'], output_names=['output'])
+torch.onnx.export(model, dummy_input, onnx_path, verbose=False, input_names=['input'], output_names=['output'], opset_version=11)
